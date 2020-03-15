@@ -26,7 +26,7 @@ export class CalcUlator {
 
   render() {
     return (
-      <div>
+      <div class="container">
         <input
           value={this._input}
           onChange={event => this.handleInputChange(event)}
