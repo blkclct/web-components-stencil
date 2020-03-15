@@ -10,6 +10,9 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
+  interface KsCalc {
+    'input': string;
+  }
   interface MyComponent {
     /**
     * The first name
@@ -29,17 +32,28 @@ export namespace Components {
 declare global {
 
 
+  interface HTMLKsCalcElement extends Components.KsCalc, HTMLStencilElement {}
+  var HTMLKsCalcElement: {
+    prototype: HTMLKsCalcElement;
+    new (): HTMLKsCalcElement;
+  };
+
   interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
   var HTMLMyComponentElement: {
     prototype: HTMLMyComponentElement;
     new (): HTMLMyComponentElement;
   };
   interface HTMLElementTagNameMap {
+    'ks-calc': HTMLKsCalcElement;
     'my-component': HTMLMyComponentElement;
   }
 }
 
 declare namespace LocalJSX {
+  interface KsCalc {
+    'input'?: string;
+    'onChangeResult'?: (event: CustomEvent<any>) => void;
+  }
   interface MyComponent {
     /**
     * The first name
@@ -56,6 +70,7 @@ declare namespace LocalJSX {
   }
 
   interface IntrinsicElements {
+    'ks-calc': KsCalc;
     'my-component': MyComponent;
   }
 }
@@ -66,6 +81,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
+      'ks-calc': LocalJSX.KsCalc & JSXBase.HTMLAttributes<HTMLKsCalcElement>;
       'my-component': LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
     }
   }
